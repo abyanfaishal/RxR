@@ -259,16 +259,16 @@
       type: 'bullets',
       clickable: true
     },
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 40
-      },
+    // breakpoints: {
+    //   320: {
+    //     slidesPerView: 1,
+    //     spaceBetween: 40
+    //   },
 
-      1200: {
-        slidesPerView: 3,
-      }
-    }
+    //   1200: {
+    //     slidesPerView: 3,
+    //   }
+    // }
   });
 
   /**
@@ -315,6 +315,7 @@
   /*==================================================================
   [ Validate ]*/
   var input = $('.validate-input .input100');
+  var input2 = $('.validate-input .input200');
 
   $('.validate-form').on('submit',function(){
       var check = true;
@@ -324,17 +325,34 @@
               showValidate(input[i]);
               check=false;
           }
-      }
-
+      } 
       return check;
   });
 
+  $('.validate-form').on('submit',function(){
+    var check = true;
+
+    for(var i=0; i<input2.length; i++) {
+        if(validate(input2[i]) == false){
+            showValidate(input2[i]);
+            check=false;
+        }
+    } 
+    return check;
+  });
 
   $('.validate-form .input100').each(function(){
       $(this).focus(function(){
          hideValidate(this);
       });
   });
+
+  $('.validate-form .input200').each(function(){
+    $(this).focus(function(){
+       hideValidate(this);
+    });
+});
+
 
   
 
@@ -349,6 +367,19 @@
               return false;
           }
       }
+  }
+
+  function validate (input){
+    if ($(input).attr('type') == 'number' || $(input).attr('name') == 'angka') {
+        if ($(input).val().trim().match(/^([0-9]+)$/) == null) {
+          return false; 
+        }
+    }
+    else {
+      if($(input).val().trim() == ''){
+          return false;
+      }
+    }
   }
 
   function showValidate(input) {
